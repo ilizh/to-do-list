@@ -1,0 +1,46 @@
+{% extends 'layouts/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Update Task - Todo List{% endblock %}
+
+{% block content %}
+    <h1>Update Task</h1>
+    <form method="post" action="{% url 'todo_list:update-task' pk=task.pk %}" class="form-horizontal">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <div class="col-sm-10">
+                {{ form.content|as_crispy_field }}
+                {% if form.content.errors %}
+                    <div class="alert alert-danger">{{ form.content.errors }}</div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-10">
+                {{ form.deadline_datetime|as_crispy_field }}
+                {% if form.deadline_datetime.errors %}
+                    <div class="alert alert-danger">{{ form.deadline_datetime.errors }}</div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-10">
+                {{ form.tags|as_crispy_field }}
+                {% if form.tags.errors %}
+                    <div class="alert alert-danger">{{ form.tags.errors }}</div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary">Update Task</button>
+            </div>
+        </div>
+    </form>
+
+    <a href="{% url 'todo_list:home' %}" class="btn btn-secondary">Cancel</a>
+{% endblock %}

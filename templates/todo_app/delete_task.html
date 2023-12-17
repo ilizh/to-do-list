@@ -1,0 +1,14 @@
+{% extends 'layouts/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Delete Task - Todo List{% endblock %}
+
+{% block content %}
+    <h1>Delete Task</h1>
+    <p>Are you sure you want to delete this task?</p>
+    <form method="post" action="{% url 'todo_list:task-delete' pk=task.id %}">
+        {% csrf_token %}
+        <button type="submit">Delete Task</button>
+    </form>
+    <a href="{% url 'todo_list:home' %}">Cancel</a>
+{% endblock %}

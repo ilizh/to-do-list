@@ -1,0 +1,13 @@
+{% extends 'layouts/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Update Tag - Todo List{% endblock %}
+
+{% block content %}
+    <h1>Update Tag</h1>
+    <form method="post" action="{% url 'todo_list:update-tag' pk=tag.id %}" class="form-inline">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit">Update Tag</button>
+    </form>
+{% endblock %}
