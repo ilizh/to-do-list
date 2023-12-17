@@ -1,0 +1,16 @@
+{% extends 'layouts/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Confirm Tag Deletion - Todo List{% endblock %}
+
+{% block content %}
+    <h1>Confirm Tag Deletion</h1>
+    <p>Are you sure you want to delete the tag "{{ tag.name }}"?</p>
+
+    <form method="post" action="{% url 'todo_list:delete-tag' pk=tag.pk %}" class="form-inline">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-danger">Delete Tag</button>
+        <a href="{% url 'todo_list:tag-list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+{% endblock %}

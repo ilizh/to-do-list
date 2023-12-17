@@ -1,0 +1,28 @@
+{% extends 'layouts/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Tag List - Todo List{% endblock %}
+
+{% block content %}
+    <h1>Tag List
+      <a href="{% url 'todo_list:add-tag' %}" class="btn btn-primary" style="float: right;">Add Tag</a>
+</h1>
+    <table class="table">
+            <tr>
+                <th>Name</th>
+                <th>Update</th>
+                <th>Delete</th>
+            </tr>
+            {% for tag in tags %}
+                <tr>
+                    <td>{{ tag.name }}</td>
+                    <td>
+                        <a href="{% url 'todo_list:update-tag' pk=tag.id %}">Update</a>
+                    </td>
+                  <td>
+                        <a href="{% url 'todo_list:delete-tag' pk=tag.id %}">Delete</a>
+                  </td>
+                </tr>
+            {% endfor %}
+    </table>
+{% endblock %}

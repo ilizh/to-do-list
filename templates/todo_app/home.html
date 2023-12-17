@@ -1,0 +1,37 @@
+{% extends 'layouts/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Todo List{% endblock %}
+
+{% block content %}
+    <h1>Welcome to the Todo List</h1>
+
+    <!-- Add Task Button -->
+    <a href="{% url 'todo_list:add-task' %}" class="btn btn-primary" style="float: right;">Add Task</a>
+
+    <!-- Display all tasks -->
+    {% for task in tasks %}
+        <div>
+            <h2>{{ task.content }}{% if task.is_done %}
+                <p><span style="color: green;">Done</span></p>
+                <a href="{% url 'todo_list:undo-task' pk=task.pk %}" class="btn btn-warning" style="float: right;">Undo</a>
+            {% else %}
+                <p><span style="color: red;">Not Done</span></p>
+                <a class="btn btn-success link-to-page" href="{% url 'todo_list:toggle-task-status' task_id=task.pk %}" style="float: right;">Complete</a>
+            {% endif %}</h2>
+            
+            <p>Created: {{ task.datetime_created }}</p>
+            {% if task.deadline_datetime %}
+                <p>Deadline: {{ task.deadline_datetime }}</p>
+            {% endif %}
+            <p>Tags: {{ task.tags.all|join:', ' }}
+                <a class="link-to-page" href="{% url 'todo_list:update-task' pk=task.pk %}">Update</a>
+                <a class="link-to-page" href="{% url 'todo_list:delete-task' pk=task.pk %}">Delete</a>
+            </p>
+
+
+            <!-- Links to Update and Delete pages -->
+            </div>
+        <hr>
+    {% endfor %}
+{% endblock %}

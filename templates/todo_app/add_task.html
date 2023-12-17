@@ -1,0 +1,36 @@
+{% extends 'layouts/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Add Task - Todo List{% endblock %}
+
+{% block content %}
+    <h1>Add Task</h1>
+    <form method="post" action="{% url 'todo_list:add-task' %}" class="form-horizontal">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            {{ form.content|as_crispy_field }}
+            {% if form.content.errors %}
+                <div class="alert alert-danger">{{ form.content.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            {{ form.deadline_datetime|as_crispy_field }}
+            {% if form.deadline_datetime.errors %}
+                <div class="alert alert-danger">{{ form.deadline_datetime.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            {{ form.tags|as_crispy_field }}
+            {% if form.tags.errors %}
+                <div class="alert alert-danger">{{ form.tags.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Add Task</button>
+        </div>
+    </form>
+{% endblock %}
